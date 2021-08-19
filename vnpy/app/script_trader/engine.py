@@ -12,9 +12,10 @@ from pandas import DataFrame
 
 from vnpy.event import Event, EventEngine
 from vnpy.trader.engine import BaseEngine, MainEngine
-from vnpy.trader.constant import Direction, Offset, OrderType, Interval
+from vnpy.trader.constant import Direction, Offset, OrderType, Interval, Exchange, CombDirectionType
 from vnpy.trader.object import (
     OrderRequest,
+    CombRequest,
     HistoryRequest,
     SubscribeRequest,
     TickData,
@@ -130,6 +131,25 @@ class ScriptEngine(BaseEngine):
 
         vt_orderid = self.main_engine.send_order(req, contract.gateway_name)
         return vt_orderid
+
+    def insert_comb(
+        self,
+        instrumentId: str,
+        volume: float,
+        exchange: Exchange,
+        direction: Direction,
+        type: CombDirectionType,
+    ) -> str:
+        """"""
+        req = CombRequest(
+            instrumentId=instrumentId,
+            volume=volume,
+            exchange=exchange,
+            direction=direction,
+            type=type,
+        )
+
+        return self.main_engine.insert_comb(req, "CTP")
 
     def subscribe(self, vt_symbols):
         """"""

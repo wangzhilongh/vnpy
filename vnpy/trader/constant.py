@@ -54,6 +54,14 @@ class Product(Enum):
     FUND = "基金"
 
 
+class CombDirectionType(Enum):
+    """
+    combination direction type.
+    """
+    COMB = "绑定"
+    UN_COMB = "拆分"
+
+
 class OrderType(Enum):
     """
     Order type.

@@ -25,6 +25,7 @@ from .event import (
 )
 from .gateway import BaseGateway
 from .object import (
+    CombRequest,
     CancelRequest,
     LogData,
     OrderRequest,
@@ -182,6 +183,11 @@ class MainEngine:
             return gateway.send_order(req)
         else:
             return ""
+
+    def insert_comb(self, req: CombRequest, gateway_name: str) -> None:
+        gateway = self.get_gateway(gateway_name)
+        if gateway:
+            gateway.insert_comb(req)
 
     def cancel_order(self, req: CancelRequest, gateway_name: str) -> None:
         """
