@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from logging import INFO
 
-from .constant import Direction, Exchange, Interval, Offset, Status, Product, OptionType, OrderType
+from .constant import Direction, CombDirectionType, Exchange, Interval, Offset, Status, Product, OptionType, OrderType
 
 ACTIVE_STATUSES = set([Status.SUBMITTING, Status.NOTTRADED, Status.PARTTRADED])
 
@@ -343,6 +343,20 @@ class OrderRequest:
             gateway_name=gateway_name,
         )
         return order
+
+
+@dataclass
+class CombRequest:
+    """
+    Request sending to specific gateway for insert combination.
+    """
+
+    InstrumentId: str
+    exchange: Exchange
+    volume: float
+    # 单纯持有卖出期权，申请组合时，传参为： Direction.SHORT
+    direction: Direction
+    type: CombDirectionType
 
 
 @dataclass
