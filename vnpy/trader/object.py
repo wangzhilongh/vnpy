@@ -351,7 +351,7 @@ class CombRequest:
     Request sending to specific gateway for insert combination.
     """
 
-    InstrumentId: str
+    instrumentId: str
     exchange: Exchange
     volume: float
     # 单纯持有卖出期权，申请组合时，传参为： Direction.SHORT
